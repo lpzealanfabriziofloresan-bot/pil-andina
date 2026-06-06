@@ -113,3 +113,4 @@ La primera vez que arranca, la app hashea las contraseñas de usuarios que tenga
 | pil_distribuidor | Dist@Pil2026! |
 
 La app usa `pil_admin` (configurado en el `.env`).
+
