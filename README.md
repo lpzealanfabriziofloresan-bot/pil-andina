@@ -1,7 +1,2 @@
-flask
-flask-login
-mysql-connector-python
-python-dotenv
-bcrypt
-pandas
-openpyxl
+# pil-andina
+Sistema de gestión PIL Andina - Base de Datos 2
