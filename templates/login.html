@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="login-page" style="margin:-24px; max-width:none; width:calc(100% + 48px);">
+  <div class="login-box">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Pil Andina">
+    <h2>Pil Andina</h2>
+    <p>Sistema de Gestión de Inventario</p>
+    <form method="POST">
+      <input type="email"    name="email"    placeholder="Correo electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

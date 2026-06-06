@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if producto else 'Nuevo' }} Producto{% endblock %}
+{% block content %}
+
+<h1>{{ '✏️ Editar' if producto else '➕ Nuevo' }} Producto</h1>
+
+<form method="POST" style="max-width:520px;">
+
+  {% if not producto %}
+  <label>Código único</label>
+  <input name="codigo" placeholder="Ej: PAC-355" required>
+  {% endif %}
+
+  <label>Marca</label>
+  <select name="marca" required>
+    {% for m in ['Paceña','Taquiña','Huari','Bock','Real','Imperial','Potosina','Copacabana'] %}
+    <option value="{{ m }}" {{ 'selected' if producto and producto.marca==m }}>{{ m }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Tipo</label>
+  <select name="tipo" required>
+    {% for t in ['Lager','Pilsener','Malta','Negra','Stout','Ale'] %}
+    <option value="{{ t }}" {{ 'selected' if producto and producto.tipo==t }}>{{ t }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Presentación</label>
+  <select name="presentacion" required>
+    {% for pres in ['355ml','500ml','620ml','1L','2L'] %}
+    <option value="{{ pres }}" {{ 'selected' if producto and producto.presentacion==pres }}>{{ pres }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Graduación alcohólica (%)</label>
+  <input type="number" step="0.01" name="graduacion_alc" placeholder="4.60"
+         value="{{ producto.graduacion_alc if producto }}" required>
+
+  <label>Precio unitario (Bs.)</label>
+  <input type="number" step="0.01" name="precio_unitario" placeholder="8.50"
+         value="{{ producto.precio_unitario if producto }}" required>
+
+  <label>Stock mínimo</label>
+  <input type="number" name="stock_minimo" placeholder="100"
+         value="{{ producto.stock_minimo if producto }}" required>
+
+  <div class="btn-group" style="margin-top:8px;">
+    <button type="submit">{{ 'Guardar cambios' if producto else 'Crear producto' }}</button>
+    <a href="{{ url_for('productos.lista') }}" class="btn btn-outline">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

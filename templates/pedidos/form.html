@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Nuevo Pedido{% endblock %}
+{% block content %}
+
+<h1>Nuevo Pedido</h1>
+
+<form method="POST" style="max-width:700px;">
+
+  {% if current_user.rol != 'Distribuidor' %}
+  <label>Distribuidor</label>
+  <select name="id_distribuidor" required>
+    <option value="">-- Seleccionar --</option>
+    {% for d in distribuidores %}
+    <option value="{{ d.id_distribuidor }}">{{ d.razon_social }} - {{ d.ciudad }}</option>
+    {% endfor %}
+  </select>
+  {% endif %}
+
+  <label>Fecha de entrega requerida</label>
+  <input type="date" name="fecha_entrega_req" required>
+
+  <label>Notas</label>
+  <textarea name="notas" rows="2" placeholder="Observaciones opcionales..."></textarea>
+
+  <hr>
+  <h3>Líneas del pedido</h3>
+
+  <div id="lineas">
+    <div class="linea" style="display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:10px; margin-bottom:10px;">
+      <select name="id_lote[]" required>
+        <option value="">-- Lote / Producto --</option>
+        {% for l in lotes %}
+        <option value="{{ l.id_lote }}">{{ l.marca }} {{ l.presentacion }} | Lote: {{ l.numero_lote }} | Stock: {{ l.cantidad_disponible }}</option>
+        {% endfor %}
+      </select>
+      <input type="number" name="cantidad[]" placeholder="Cantidad" min="1" required>
+      <input type="number" step="0.01" name="precio[]" placeholder="Precio unit." min="0" required>
+      <button type="button" onclick="this.closest('.linea').remove()" class="btn btn-sm btn-danger">✕</button>
+    </div>
+  </div>
+
+  <button type="button" onclick="agregarLinea()" class="btn btn-outline btn-sm" style="margin-bottom:16px;">
+    + Agregar producto
+  </button>
+
+  <div class="btn-group">
+    <button type="submit">Crear pedido</button>
+    <a href="{{ url_for('pedidos.lista') }}" class="btn btn-outline">Cancelar</a>
+  </div>
+</form>
+
+<script>
+const lotesOpts = `{% for l in lotes %}<option value="{{ l.id_lote }}">{{ l.marca }} {{ l.presentacion }} | Lote: {{ l.numero_lote }} | Stock: {{ l.cantidad_disponible }}</option>{% endfor %}`;
+function agregarLinea() {
+  const div = document.createElement('div');
+  div.className = 'linea';
+  div.style = 'display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:10px; margin-bottom:10px;';
+  div.innerHTML = `
+    <select name="id_lote[]" required><option value="">-- Lote / Producto --</option>${lotesOpts}</select>
+    <input type="number" name="cantidad[]" placeholder="Cantidad" min="1" required>
+    <input type="number" step="0.01" name="precio[]" placeholder="Precio unit." min="0" required>
+    <button type="button" onclick="this.closest('.linea').remove()" class="btn btn-sm btn-danger">✕</button>`;
+  document.getElementById('lineas').appendChild(div);
+}
+</script>
+{% endblock %}

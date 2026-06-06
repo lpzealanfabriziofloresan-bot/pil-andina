@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if distribuidor else 'Nuevo' }} Distribuidor{% endblock %}
+{% block content %}
+
+<h1>{{ 'Editar' if distribuidor else 'Nuevo' }} Distribuidor</h1>
+
+<form method="POST">
+  <label>Razón social</label>
+  <input name="razon_social" value="{{ distribuidor.razon_social if distribuidor }}" required>
+
+  <label>Ciudad</label>
+  <input name="ciudad" value="{{ distribuidor.ciudad if distribuidor }}" required>
+
+  <label>NIT</label>
+  <input name="nit" value="{{ distribuidor.nit if distribuidor }}">
+
+  <label>Teléfono</label>
+  <input name="telefono" value="{{ distribuidor.telefono if distribuidor }}">
+
+  <div class="btn-group" style="margin-top:8px;">
+    <button type="submit">{{ 'Guardar cambios' if distribuidor else 'Crear distribuidor' }}</button>
+    <a href="{{ url_for('distribuidores.lista') }}" class="btn btn-outline">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

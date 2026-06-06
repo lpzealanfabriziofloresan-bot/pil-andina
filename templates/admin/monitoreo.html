@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Monitoreo{% endblock %}
+{% block content %}
+
+<h1>Monitoreo del Sistema</h1>
+
+<div class="cards" style="margin-bottom:24px;">
+  <div class="card info">
+    <span class="card-num">{{ conexiones.Value if conexiones else '—' }}</span>
+    <span class="card-label">Conexiones MySQL activas</span>
+  </div>
+  <div class="card">
+    <span class="card-num">{{ procesos|length }}</span>
+    <span class="card-label">Procesos en processlist</span>
+  </div>
+  <div class="card warn">
+    <span class="card-num">{{ logs|length }}</span>
+    <span class="card-label">Entradas de auditoría</span>
+  </div>
+</div>
+
+<h2>Procesos activos en MySQL</h2>
+<table>
+  <thead>
+    <tr><th>ID</th><th>Usuario</th><th>Host</th><th>Base</th><th>Comando</th><th>Tiempo</th><th>Estado</th></tr>
+  </thead>
+  <tbody>
+  {% for p in procesos %}
+    <tr>
+      <td>{{ p.Id }}</td>
+      <td>{{ p.User }}</td>
+      <td>{{ p.Host }}</td>
+      <td>{{ p.db or '—' }}</td>
+      <td>{{ p.Command }}</td>
+      <td>{{ p.Time }}s</td>
+      <td>{{ p.State or '—' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Log de auditoría (últimas 50 acciones)</h2>
+<table>
+  <thead>
+    <tr><th>Fecha</th><th>Usuario ID</th><th>Acción</th><th>Tabla</th><th>Registro</th><th>Detalle</th></tr>
+  </thead>
+  <tbody>
+  {% for l in logs %}
+    <tr>
+      <td style="white-space:nowrap;">{{ l.fecha }}</td>
+      <td>{{ l.id_usuario or 'Sistema' }}</td>
+      <td><code>{{ l.accion }}</code></td>
+      <td>{{ l.tabla_afectada }}</td>
+      <td>{{ l.id_registro or '—' }}</td>
+      <td style="font-size:.85rem; color:var(--texto-suave);">{{ l.detalle or '—' }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="6" style="text-align:center; color:var(--texto-suave);">Sin registros aún.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

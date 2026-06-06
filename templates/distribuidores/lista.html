@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Distribuidores{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Distribuidores</h1>
+  {% if current_user.is_gerente() %}
+  <a href="{{ url_for('distribuidores.nuevo') }}" class="btn">+ Nuevo distribuidor</a>
+  {% endif %}
+</div>
+
+<table>
+  <thead><tr><th>Razón social</th><th>Ciudad</th><th>NIT</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr></thead>
+  <tbody>
+  {% for d in distribuidores %}
+    <tr>
+      <td><strong>{{ d.razon_social }}</strong></td>
+      <td>{{ d.ciudad }}</td>
+      <td>{{ d.nit or '—' }}</td>
+      <td>{{ d.telefono or '—' }}</td>
+      <td>
+        {% if d.activo %}
+          <span class="badge activo">Activo</span>
+        {% else %}
+          <span class="badge inactivo">Inactivo</span>
+        {% endif %}
+      </td>
+      <td style="display:flex; gap:8px;">
+        {% if current_user.is_gerente() %}
+        <a href="{{ url_for('distribuidores.editar', id=d.id_distribuidor) }}" class="btn btn-sm btn-secondary">Editar</a>
+        {% endif %}
+        {% if current_user.is_admin() and d.activo %}
+        <a href="{{ url_for('distribuidores.eliminar', id=d.id_distribuidor) }}" class="btn btn-sm btn-danger btn-eliminar">Desactivar</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

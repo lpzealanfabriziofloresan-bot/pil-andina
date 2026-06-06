@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Pedidos{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Pedidos</h1>
+  <div class="btn-group">
+    <a href="{{ url_for('pedidos.nuevo') }}" class="btn">+ Nuevo pedido</a>
+    {% if current_user.is_gerente() %}
+    <a href="{{ url_for('pedidos.exportar') }}" class="btn btn-success btn-sm">Exportar Excel</a>
+    {% endif %}
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th><th>Distribuidor</th><th>Fecha pedido</th>
+      <th>Entrega requerida</th><th>Estado</th><th>Monto (Bs.)</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for p in pedidos %}
+    <tr>
+      <td>{{ p.id_pedido }}</td>
+      <td>{{ p.razon_social }}</td>
+      <td>{{ p.fecha_pedido.strftime('%d/%m/%Y') if p.fecha_pedido else '-' }}</td>
+      <td>{{ p.fecha_entrega_req }}</td>
+      <td>
+        <span class="badge {% if p.estado=='Pendiente' %}urgente{% elif p.estado=='Despachado' %}gerente{% elif p.estado=='Cancelado' %}critico{% else %}inactivo{% endif %}">
+          {{ p.estado }}
+        </span>
+      </td>
+      <td>{{ "%.2f"|format(p.monto_total) }}</td>
+      <td style="display:flex; gap:8px; flex-wrap:wrap;">
+        {% if p.estado == 'Pendiente' %}
+          <a href="{{ url_for('pedidos.editar', id=p.id_pedido) }}" class="btn btn-sm btn-secondary">Editar</a>
+          {% if current_user.is_gerente() %}
+          <a href="{{ url_for('pedidos.despachar', id=p.id_pedido) }}" class="btn btn-sm btn-success btn-eliminar">Despachar</a>
+          {% endif %}
+          <a href="{{ url_for('pedidos.cancelar', id=p.id_pedido) }}" class="btn btn-sm btn-danger btn-eliminar">Cancelar</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7" style="text-align:center; color:var(--texto-suave);">No hay pedidos.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

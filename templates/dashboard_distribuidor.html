@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Mi Panel{% endblock %}
+{% block content %}
+
+<div class="role-banner distribuidor">
+  Panel de <strong>Distribuidor</strong> — solo puedes ver tus pedidos y consultar el catálogo de productos.
+</div>
+
+<h1>Mi Panel</h1>
+
+<div class="cards">
+  <div class="card warn">
+    <span class="card-num">{{ mis_pendientes }}</span>
+    <span class="card-label">Mis pedidos pendientes</span>
+  </div>
+  <div class="card info">
+    <span class="card-num">{{ mis_pedidos }}</span>
+    <span class="card-label">Total de mis pedidos</span>
+  </div>
+  <div class="card">
+    <span class="card-num">{{ total_productos }}</span>
+    <span class="card-label">Productos disponibles</span>
+  </div>
+</div>
+
+<div class="btn-group" style="margin-bottom:20px;">
+  <a href="{{ url_for('pedidos.nuevo') }}" class="btn">+ Nuevo pedido</a>
+  <a href="{{ url_for('productos.lista') }}" class="btn btn-secondary btn-sm">Ver catálogo</a>
+</div>
+
+<h2>Mis pedidos recientes</h2>
+<table>
+  <thead><tr><th>#</th><th>Fecha</th><th>Entrega</th><th>Estado</th><th>Monto (Bs.)</th><th>Acciones</th></tr></thead>
+  <tbody>
+  {% for p in pedidos %}
+    <tr>
+      <td>{{ p.id_pedido }}</td>
+      <td>{{ p.fecha_pedido.strftime('%d/%m/%Y') if p.fecha_pedido else '-' }}</td>
+      <td>{{ p.fecha_entrega_req }}</td>
+      <td><span class="badge {% if p.estado=='Pendiente' %}urgente{% elif p.estado=='Despachado' %}gerente{% else %}inactivo{% endif %}">{{ p.estado }}</span></td>
+      <td>{{ "%.2f"|format(p.monto_total) }}</td>
+      <td>
+        {% if p.estado == 'Pendiente' %}
+        <a href="{{ url_for('pedidos.editar', id=p.id_pedido) }}" class="btn btn-sm btn-secondary">Editar</a>
+        <a href="{{ url_for('pedidos.cancelar', id=p.id_pedido) }}" class="btn btn-sm btn-danger btn-eliminar">Cancelar</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="6" style="text-align:center; color:var(--texto-suave);">Aún no tienes pedidos.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

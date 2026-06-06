@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Reportes{% endblock %}
+{% block content %}
+<div class="role-banner distribuidor">Los reportes completos están disponibles solo para Gerentes y Administradores.</div>
+<h1>Reportes</h1>
+<p style="color:var(--texto-suave);">Como distribuidor, puedes consultar el catálogo de productos y el estado de tus pedidos desde el menú principal.</p>
+<a href="{{ url_for('pedidos.lista') }}" class="btn btn-secondary">Ver mis pedidos</a>
+{% endblock %}

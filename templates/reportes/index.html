@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Reportes{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Reportes</h1>
+  <div class="btn-group">
+    <a href="{{ url_for('reportes.exportar', tipo='stock') }}" class="btn btn-success btn-sm">Exportar stock</a>
+    <a href="{{ url_for('reportes.exportar', tipo='vencer') }}" class="btn btn-success btn-sm">Exportar vencimientos</a>
+    <a href="{{ url_for('reportes.exportar', tipo='rotacion') }}" class="btn btn-success btn-sm">Exportar rotación</a>
+  </div>
+</div>
+
+<h2>Resumen de stock por planta</h2>
+<table>
+  <thead><tr><th>Planta</th><th>Stock total</th><th>Productos distintos</th></tr></thead>
+  <tbody>
+  {% for r in resumen_plantas %}
+    <tr>
+      <td><strong>{{ r.planta }}</strong></td>
+      <td>{{ r.stock_total }} uds.</td>
+      <td>{{ r.productos_distintos }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Stock detallado por planta y producto</h2>
+<table>
+  <thead><tr><th>Planta</th><th>Ciudad</th><th>Marca</th><th>Presentación</th><th>Stock</th><th>Lotes</th></tr></thead>
+  <tbody>
+  {% for s in stock_planta %}
+    <tr>
+      <td>{{ s.planta }}</td>
+      <td>{{ s.ciudad }}</td>
+      <td>{{ s.marca }}</td>
+      <td>{{ s.presentacion }}</td>
+      <td><strong>{{ s.stock_total }}</strong></td>
+      <td>{{ s.num_lotes }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Productos próximos a vencer</h2>
+<table>
+  <thead><tr><th>Lote</th><th>Marca</th><th>Planta</th><th>Bodega</th><th>Stock</th><th>Vence</th><th>Días</th><th>Nivel</th></tr></thead>
+  <tbody>
+  {% for p in proximos %}
+    <tr>
+      <td>{{ p.numero_lote }}</td>
+      <td>{{ p.marca }} {{ p.presentacion }}</td>
+      <td>{{ p.planta }}</td>
+      <td>{{ p.bodega }}</td>
+      <td>{{ p.cantidad_disponible }}</td>
+      <td>{{ p.fecha_vencimiento }}</td>
+      <td>{{ p.dias_restantes }}</td>
+      <td><span class="badge {{ p.nivel_alerta|lower }}">{{ p.nivel_alerta }}</span></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="8" style="text-align:center; color:var(--texto-suave);">Sin productos próximos a vencer.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Rotación de inventario</h2>
+<table>
+  <thead><tr><th>Código</th><th>Marca</th><th>Planta</th><th>Producido</th><th>Despachado</th><th>Stock actual</th><th>% Rotación</th></tr></thead>
+  <tbody>
+  {% for r in rotacion %}
+    <tr>
+      <td><code>{{ r.codigo }}</code></td>
+      <td>{{ r.marca }} {{ r.presentacion }}</td>
+      <td>{{ r.planta }}</td>
+      <td>{{ r.total_producido }}</td>
+      <td>{{ r.total_despachado }}</td>
+      <td>{{ r.stock_actual }}</td>
+      <td><strong>{{ r.pct_rotacion }}%</strong></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

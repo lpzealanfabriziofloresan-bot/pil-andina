@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if usuario else 'Nuevo' }} Usuario{% endblock %}
+{% block content %}
+
+<h1>{{ 'Editar' if usuario else 'Nuevo' }} Usuario</h1>
+
+<form method="POST">
+  <label>Nombre</label>
+  <input name="nombre" value="{{ usuario.nombre if usuario }}" required>
+
+  <label>Apellido</label>
+  <input name="apellido" value="{{ usuario.apellido if usuario }}" required>
+
+  <label>Email</label>
+  <input type="email" name="email" value="{{ usuario.email if usuario }}" required>
+
+  <label>Rol</label>
+  <select name="rol" required>
+    {% for r in ['Administrador','Gerente','Distribuidor'] %}
+    <option value="{{ r }}" {% if usuario and usuario.rol==r %}selected{% endif %}>{{ r }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Distribuidor (solo si rol = Distribuidor)</label>
+  <select name="id_distribuidor">
+    <option value="">— Ninguno —</option>
+    {% for d in distribuidores %}
+    <option value="{{ d.id_distribuidor }}" {% if usuario and usuario.id_distribuidor==d.id_distribuidor %}selected{% endif %}>
+      {{ d.razon_social }}
+    </option>
+    {% endfor %}
+  </select>
+
+  {% if usuario %}
+  <label>
+    <input type="checkbox" name="activo" {% if usuario.activo %}checked{% endif %}> Usuario activo
+  </label>
+  {% endif %}
+
+  <div class="btn-group" style="margin-top:8px;">
+    <button type="submit">{{ 'Guardar cambios' if usuario else 'Crear usuario' }}</button>
+    <a href="{{ url_for('admin.usuarios') }}" class="btn btn-outline">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

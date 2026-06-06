@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Gestión de Usuarios{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Usuarios del Sistema</h1>
+  <a href="{{ url_for('admin.usuario_nuevo') }}" class="btn">+ Nuevo usuario</a>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Distribuidor</th><th>Estado</th><th>Acciones</th></tr>
+  </thead>
+  <tbody>
+  {% for u in usuarios %}
+    <tr>
+      <td>{{ u.nombre }} {{ u.apellido }}</td>
+      <td>{{ u.email }}</td>
+      <td>
+        <span class="badge {{ u.rol|lower }}">{{ u.rol }}</span>
+      </td>
+      <td>{{ u.razon_social or '—' }}</td>
+      <td>
+        {% if u.activo %}
+          <span class="badge activo">Activo</span>
+        {% else %}
+          <span class="badge inactivo">Inactivo</span>
+        {% endif %}
+      </td>
+      <td>
+        <a href="{{ url_for('admin.usuario_editar', id=u.id_usuario) }}" class="btn btn-sm btn-secondary">Editar</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<div class="info-box">
+  <strong>Roles MySQL:</strong>
+  <code>pil_admin</code> — Acceso total &nbsp;|&nbsp;
+  <code>pil_gerente</code> — Lectura y escritura &nbsp;|&nbsp;
+  <code>pil_distribuidor</code> — Solo lectura
+</div>
+{% endblock %}

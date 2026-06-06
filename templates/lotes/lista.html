@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Lotes{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Lotes de Producción</h1>
+  {% if current_user.is_gerente() %}
+  <a href="{{ url_for('lotes.nuevo') }}" class="btn">+ Registrar lote</a>
+  {% endif %}
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>N° Lote</th><th>Producto</th><th>Planta</th><th>Bodega</th>
+      <th>Producido</th><th>Disponible</th><th>Vencimiento</th><th>Estado</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for l in lotes %}
+    <tr>
+      <td><code>{{ l.numero_lote }}</code></td>
+      <td>{{ l.marca }} {{ l.presentacion }}</td>
+      <td>{{ l.planta }}</td>
+      <td>{{ l.bodega }}</td>
+      <td>{{ l.cantidad_producida }}</td>
+      <td>
+        <strong {% if l.cantidad_disponible < 500 %}style="color:var(--rojo);"{% endif %}>
+          {{ l.cantidad_disponible }}
+        </strong>
+      </td>
+      <td>{{ l.fecha_vencimiento }}</td>
+      <td>
+        <span class="badge {% if l.estado=='Aprobado' %}activo{% elif l.estado=='Rechazado' %}critico{% else %}inactivo{% endif %}">
+          {{ l.estado }}
+        </span>
+      </td>
+      <td style="display:flex; gap:8px;">
+        {% if current_user.is_gerente() %}
+        <a href="{{ url_for('lotes.editar', id=l.id_lote) }}" class="btn btn-sm btn-secondary">Editar</a>
+        {% endif %}
+        {% if current_user.is_admin() and l.estado != 'Rechazado' %}
+        <a href="{{ url_for('lotes.eliminar', id=l.id_lote) }}" class="btn btn-sm btn-danger btn-eliminar">Rechazar</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="9" style="text-align:center; color:var(--texto-suave);">No hay lotes registrados.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

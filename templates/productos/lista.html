@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Productos{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Productos</h1>
+  <div class="btn-group">
+    {% if current_user.is_gerente() %}
+    <a href="{{ url_for('productos.nuevo') }}" class="btn">+ Nuevo producto</a>
+    {% endif %}
+    <a href="{{ url_for('productos.exportar') }}" class="btn btn-success btn-sm">Exportar Excel</a>
+  </div>
+</div>
+
+<form method="GET" class="filter-form">
+  <input name="marca" placeholder="Buscar marca..." value="{{ marca }}" style="max-width:200px;">
+  <select name="tipo" style="max-width:160px;">
+    <option value="">Todos los tipos</option>
+    {% for t in ['Lager','Pilsener','Malta','Negra','Stout','Ale'] %}
+    <option value="{{ t }}" {% if tipo==t %}selected{% endif %}>{{ t }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filtrar</button>
+  <a href="{{ url_for('productos.lista') }}" class="btn btn-outline btn-sm">Limpiar</a>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Código</th><th>Marca</th><th>Tipo</th><th>Presentación</th>
+      <th>Alcohol</th><th>Precio (Bs.)</th><th>Stock mín.</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for p in productos %}
+    <tr>
+      <td><code>{{ p.codigo }}</code></td>
+      <td><strong>{{ p.marca }}</strong></td>
+      <td>{{ p.tipo }}</td>
+      <td>{{ p.presentacion }}</td>
+      <td>{{ p.graduacion_alc }}%</td>
+      <td>{{ "%.2f"|format(p.precio_unitario) }}</td>
+      <td>{{ p.stock_minimo }}</td>
+      <td style="display:flex; gap:8px; flex-wrap:wrap;">
+        {% if current_user.is_gerente() %}
+        <a href="{{ url_for('productos.editar', id=p.id_producto) }}" class="btn btn-sm btn-secondary">Editar</a>
+        {% endif %}
+        {% if current_user.is_admin() %}
+        <a href="{{ url_for('productos.eliminar', id=p.id_producto) }}" class="btn btn-sm btn-danger btn-eliminar">Desactivar</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="8" style="text-align:center; color:var(--texto-suave);">No se encontraron productos.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

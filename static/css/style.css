@@ -1,0 +1,112 @@
+:root {
+  --azul-marino: #0B2D6B;
+  --azul-oscuro: #08204D;
+  --rojo:        #E30613;
+  --rojo-hover:  #C00510;
+  --blanco:      #FFFFFF;
+  --gris-claro:  #F4F6F9;
+  --gris-borde:  #DDE3EC;
+  --texto:       #1A2340;
+  --texto-suave: #5A6478;
+  --verde:       #1B7A4E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: var(--blanco); color: var(--texto); min-height: 100vh; }
+
+.navbar { display:flex; align-items:center; gap:20px; padding:12px 28px;
+  background: var(--azul-marino); border-bottom: 4px solid var(--rojo); }
+.nav-brand { display:flex; align-items:center; gap:10px; font-size:1.2rem; font-weight:700; color:var(--blanco); }
+.nav-brand img { height:36px; border-radius:50%; }
+.nav-links  { display:flex; gap:6px; list-style:none; flex-wrap:wrap; }
+.nav-links a { color:rgba(255,255,255,.92); text-decoration:none; padding:6px 12px;
+  border-radius:6px; transition:.2s; font-size:.9rem; }
+.nav-links a:hover { background:rgba(255,255,255,.15); color:var(--blanco); }
+.nav-user { margin-left:auto; font-size:.85rem; color:rgba(255,255,255,.8); }
+.nav-user em { color:var(--rojo); font-style:normal; font-weight:600; }
+
+.container { max-width:1200px; margin:0 auto; padding:24px; }
+h1 { color:var(--azul-marino); margin:16px 0 12px; font-size:1.6rem; }
+h2 { color:var(--azul-marino); margin:24px 0 12px; font-size:1.2rem; border-left:4px solid var(--rojo); padding-left:10px; }
+h3 { color:var(--azul-marino); margin-bottom:10px; }
+
+.page-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px; }
+.btn-group { display:flex; gap:10px; flex-wrap:wrap; }
+
+.cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+.card  { flex:1; min-width:180px; background:var(--gris-claro);
+  border:1px solid var(--gris-borde); border-left:4px solid var(--azul-marino);
+  border-radius:10px; padding:20px; text-align:center; }
+.card.warn   { border-left-color:var(--rojo); }
+.card.danger { border-left-color:var(--rojo); background:#FFF5F5; }
+.card.info   { border-left-color:var(--azul-marino); }
+.card-num    { display:block; font-size:2.2rem; font-weight:700; color:var(--azul-marino); }
+.card-label  { font-size:.85rem; color:var(--texto-suave); margin-top:4px; }
+
+table { width:100%; border-collapse:collapse; margin:12px 0 28px; background:var(--blanco);
+  border:1px solid var(--gris-borde); border-radius:8px; overflow:hidden; }
+th { background:var(--azul-marino); color:var(--blanco); padding:10px 12px; text-align:left; font-size:.9rem; }
+td { padding:10px 12px; border-bottom:1px solid var(--gris-borde); font-size:.9rem; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:var(--gris-claro); }
+
+.badge { padding:3px 10px; border-radius:12px; font-size:.75rem; font-weight:600; display:inline-block; }
+.badge.crítico, .badge.critico    { background:var(--rojo); color:#fff; }
+.badge.urgente    { background:#FF6B00; color:#fff; }
+.badge.advertencia{ background:var(--azul-marino); color:#fff; }
+.badge.admin      { background:var(--rojo); color:#fff; }
+.badge.gerente    { background:var(--azul-marino); color:#fff; }
+.badge.distribuidor { background:var(--verde); color:#fff; }
+.badge.activo     { background:var(--verde); color:#fff; }
+.badge.inactivo   { background:#888; color:#fff; }
+
+form { display:flex; flex-direction:column; gap:12px; max-width:520px; }
+label { font-size:.85rem; font-weight:600; color:var(--azul-marino); margin-bottom:-6px; }
+input, select, textarea {
+  background:var(--blanco); border:1px solid var(--gris-borde);
+  color:var(--texto); padding:10px 14px; border-radius:8px; font-size:1rem; }
+input:focus, select:focus, textarea:focus {
+  outline:none; border-color:var(--azul-marino); box-shadow:0 0 0 3px rgba(11,45,107,.12); }
+button, .btn { background:var(--rojo); color:var(--blanco); border:none;
+  padding:10px 22px; border-radius:8px; font-weight:700; cursor:pointer;
+  text-decoration:none; display:inline-block; font-size:.9rem; transition:.2s; }
+button:hover, .btn:hover { background:var(--rojo-hover); opacity:1; }
+.btn-secondary { background:var(--azul-marino); color:var(--blanco); }
+.btn-secondary:hover { background:var(--azul-oscuro); }
+.btn-success { background:var(--verde); color:var(--blanco); }
+.btn-success:hover { background:#156040; }
+.btn-danger { background:var(--rojo); color:#fff; }
+.btn-sm { padding:4px 12px; font-size:.8rem; }
+.btn-outline { background:transparent; border:2px solid var(--azul-marino); color:var(--azul-marino); }
+.btn-outline:hover { background:var(--azul-marino); color:var(--blanco); }
+
+.filter-form { flex-direction:row; flex-wrap:wrap; gap:10px; margin:16px 0; max-width:100%; }
+
+.login-page { background:var(--azul-marino); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+.login-box { max-width:400px; width:100%; margin:40px auto; background:var(--blanco);
+  border-radius:16px; padding:40px; border:4px solid var(--rojo); text-align:center;
+  box-shadow:0 8px 32px rgba(0,0,0,.25); }
+.login-box img { height:80px; margin-bottom:12px; }
+.login-box h2 { font-size:1.6rem; color:var(--azul-marino); margin-bottom:4px; border:none; padding:0; }
+.login-box p  { color:var(--texto-suave); margin-bottom:24px; font-size:.9rem; }
+.login-box form { max-width:100%; }
+
+.alert { padding:10px 16px; border-radius:8px; margin-bottom:14px; font-size:.9rem; }
+.alert-success { background:#E8F5EE; border-left:4px solid var(--verde); color:#1B5E3B; }
+.alert-danger  { background:#FFF0F0; border-left:4px solid var(--rojo); color:#8B0000; }
+.alert-warning { background:#FFF8E6; border-left:4px solid #FF6B00; color:#7A4500; }
+
+.info-box { padding:16px; border-left:4px solid var(--azul-marino);
+  background:var(--gris-claro); border-radius:8px; font-size:.9rem; margin-top:20px; }
+.info-box code { background:rgba(11,45,107,.08); padding:2px 6px; border-radius:4px; font-size:.85rem; }
+
+.role-banner { padding:12px 16px; border-radius:8px; margin-bottom:20px; font-size:.9rem; }
+.role-banner.admin { background:#FFF0F0; border:1px solid var(--rojo); color:#8B0000; }
+.role-banner.gerente { background:#EEF3FB; border:1px solid var(--azul-marino); color:var(--azul-marino); }
+.role-banner.distribuidor { background:#E8F5EE; border:1px solid var(--verde); color:#1B5E3B; }
+
+hr { border:none; border-top:1px solid var(--gris-borde); margin:16px 0; }
+
+@media (max-width:768px) {
+  .navbar { flex-wrap:wrap; gap:10px; }
+  .nav-user { margin-left:0; width:100%; }
+}

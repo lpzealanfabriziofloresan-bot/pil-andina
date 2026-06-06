@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Backups{% endblock %}
+{% block content %}
+
+<h1>Panel de Backups</h1>
+
+<form method="POST" style="margin-bottom:24px; max-width:100%;">
+  <button type="submit">Generar backup ahora</button>
+  <p style="color:var(--texto-suave); margin-top:8px; font-size:.85rem;">
+    Se guarda en la carpeta <code>backups/</code> del proyecto con timestamp.
+  </p>
+</form>
+
+<h2>Backups disponibles</h2>
+{% if backups %}
+<table>
+  <thead><tr><th>Archivo</th><th>Acción</th></tr></thead>
+  <tbody>
+  {% for b in backups %}
+    <tr>
+      <td><code>{{ b }}</code></td>
+      <td>
+        <a href="{{ url_for('admin.backup_descargar', filename=b) }}" class="btn btn-sm btn-success">
+          Descargar
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p style="color:var(--texto-suave);">No hay backups generados todavía.</p>
+{% endif %}
+
+<div class="info-box">
+  <strong>Backup manual desde terminal:</strong><br>
+  <code style="display:block; margin-top:8px; padding:10px;">
+    mysqldump -u pil_admin -p pil_andina > backup_manual.sql
+  </code>
+</div>
+{% endblock %}

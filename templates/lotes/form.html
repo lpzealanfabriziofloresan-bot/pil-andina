@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if lote else 'Nuevo' }} Lote{% endblock %}
+{% block content %}
+
+<h1>{{ 'Editar' if lote else 'Registrar' }} Lote de Producción</h1>
+
+<form method="POST" style="max-width:520px;">
+
+  {% if not lote %}
+  <label>Número de lote</label>
+  <input name="numero_lote" placeholder="Ej: LP-2026-013" required>
+
+  <label>Producto</label>
+  <select name="id_producto" required>
+    <option value="">-- Seleccionar --</option>
+    {% for p in productos %}
+    <option value="{{ p.id_producto }}">{{ p.marca }} {{ p.presentacion }} ({{ p.codigo }})</option>
+    {% endfor %}
+  </select>
+
+  <label>Planta de producción</label>
+  <select name="id_planta" required>
+    <option value="">-- Seleccionar --</option>
+    {% for pl in plantas %}
+    <option value="{{ pl.id_planta }}">{{ pl.nombre }} - {{ pl.ciudad }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Bodega de almacenamiento</label>
+  <select name="id_bodega" required>
+    <option value="">-- Seleccionar --</option>
+    {% for b in bodegas %}
+    <option value="{{ b.id_bodega }}">{{ b.planta }} / {{ b.nombre }} ({{ b.tipo }})</option>
+    {% endfor %}
+  </select>
+
+  <label>Fecha de producción</label>
+  <input type="date" name="fecha_produccion" required>
+
+  <label>Fecha de vencimiento</label>
+  <input type="date" name="fecha_vencimiento" required>
+
+  <label>Cantidad producida (unidades)</label>
+  <input type="number" name="cantidad" placeholder="5000" min="1" required>
+
+  {% else %}
+  <p style="color:var(--texto-suave); margin-bottom:8px;">
+    Lote <strong>{{ lote.numero_lote }}</strong> — {{ lote.marca }} {{ lote.presentacion }}
+  </p>
+
+  <label>Fecha de vencimiento</label>
+  <input type="date" name="fecha_vencimiento" value="{{ lote.fecha_vencimiento }}" required>
+
+  <label>Cantidad disponible</label>
+  <input type="number" name="cantidad_disponible" value="{{ lote.cantidad_disponible }}" min="0" required>
+
+  <label>Estado</label>
+  <select name="estado" required>
+    {% for e in ['En Cuarentena','Aprobado','Rechazado','Agotado'] %}
+    <option value="{{ e }}" {% if lote.estado==e %}selected{% endif %}>{{ e }}</option>
+    {% endfor %}
+  </select>
+  {% endif %}
+
+  <div class="btn-group" style="margin-top:8px;">
+    <button type="submit">{{ 'Guardar cambios' if lote else 'Registrar lote' }}</button>
+    <a href="{{ url_for('lotes.lista') }}" class="btn btn-outline">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

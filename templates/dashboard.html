@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+{% if es_admin %}
+<div class="role-banner admin">Panel de <strong>Administrador</strong> — acceso total: usuarios, monitoreo, backups y eliminaciones.</div>
+{% elif es_gerente %}
+<div class="role-banner gerente">Panel de <strong>Gerente</strong> — gestión operativa: productos, lotes, pedidos, distribuidores y reportes.</div>
+{% endif %}
+
+<h1>Dashboard</h1>
+
+<div class="cards">
+  <div class="card">
+    <span class="card-num">{{ total_lotes }}</span>
+    <span class="card-label">Lotes activos</span>
+  </div>
+  <div class="card warn">
+    <span class="card-num">{{ pedidos_pendientes }}</span>
+    <span class="card-label">Pedidos pendientes</span>
+  </div>
+  <div class="card danger">
+    <span class="card-num">{{ proximos_vencer }}</span>
+    <span class="card-label">Por vencer (&le;30 días)</span>
+  </div>
+  <div class="card info">
+    <span class="card-num">{{ total_dist }}</span>
+    <span class="card-label">Distribuidores activos</span>
+  </div>
+</div>
+
+{% if es_admin %}
+<div class="btn-group" style="margin-bottom:20px;">
+  <a href="{{ url_for('admin.usuarios') }}" class="btn btn-secondary btn-sm">Usuarios</a>
+  <a href="{{ url_for('admin.monitoreo') }}" class="btn btn-secondary btn-sm">Monitoreo</a>
+  <a href="{{ url_for('admin.backup') }}" class="btn btn-secondary btn-sm">Backups</a>
+</div>
+{% endif %}
+
+<h2>Alertas de vencimiento</h2>
+<table>
+  <thead><tr><th>Lote</th><th>Marca</th><th>Bodega</th><th>Stock</th><th>Vence</th><th>Días</th><th>Nivel</th></tr></thead>
+  <tbody>
+  {% for a in alertas %}
+    <tr>
+      <td>{{ a.numero_lote }}</td>
+      <td>{{ a.marca }} {{ a.presentacion }}</td>
+      <td>{{ a.bodega }}</td>
+      <td>{{ a.cantidad_disponible }}</td>
+      <td>{{ a.fecha_vencimiento }}</td>
+      <td>{{ a.dias_restantes }}</td>
+      <td><span class="badge {{ a.nivel_alerta|lower }}">{{ a.nivel_alerta }}</span></td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7" style="text-align:center; color:var(--texto-suave);">Sin alertas de vencimiento.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Pedidos pendientes recientes</h2>
+<table>
+  <thead><tr><th>Distribuidor</th><th>Ciudad</th><th>Pedido #</th><th>Entrega</th><th>Días</th><th>Monto</th></tr></thead>
+  <tbody>
+  {% for p in pedidos %}
+    <tr>
+      <td>{{ p.razon_social }}</td>
+      <td>{{ p.ciudad }}</td>
+      <td>{{ p.id_pedido }}</td>
+      <td>{{ p.fecha_entrega_req }}</td>
+      <td>{{ p.dias_para_entrega }}</td>
+      <td>Bs. {{ p.monto_total }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="6" style="text-align:center; color:var(--texto-suave);">Sin pedidos pendientes.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
