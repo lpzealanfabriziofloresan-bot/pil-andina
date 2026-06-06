@@ -1,0 +1,5 @@
+DB_HOST=localhost
+DB_USER=pil_admin
+DB_PASSWORD=Admin@Pil2026!
+DB_NAME=pil_andina
+SECRET_KEY=pil-andina-secret-2026
