@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2026 a las 19:20:27
+-- Tiempo de generación: 06-06-2026 a las 03:02:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -453,19 +453,19 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `email`, `password_hash`, `rol`, `id_distribuidor`, `activo`, `ultimo_login`, `creado_en`) VALUES
-(1, 'Administrador', 'Sistema', 'admin@pilandina.bo', 'CHANGEME', 'Administrador', NULL, 1, NULL, '2026-06-04 20:19:15'),
-(2, 'Carlos', 'Mamani', 'gerente@pilandina.bo', 'CHANGEME', 'Gerente', NULL, 1, NULL, '2026-06-04 20:19:15'),
-(3, 'Rosa', 'Torrez', 'rtorrez@pilandina.bo', 'CHANGEME', 'Gerente', NULL, 1, NULL, '2026-06-04 20:19:15'),
-(4, 'Mario', 'Condori', 'andina@dist.bo', 'CHANGEME', 'Distribuidor', 1, 1, NULL, '2026-06-04 20:19:15'),
-(5, 'Ana', 'Flores', 'buen@dist.bo', 'CHANGEME', 'Distribuidor', 2, 1, NULL, '2026-06-04 20:19:15'),
-(6, 'Luis', 'Medina', 'valle@dist.bo', 'CHANGEME', 'Distribuidor', 3, 1, NULL, '2026-06-04 20:19:15'),
-(7, 'Paola', 'Ribera', 'oriente@dist.bo', 'CHANGEME', 'Distribuidor', 4, 1, NULL, '2026-06-04 20:19:15'),
-(8, 'Pedro', 'Quispe', 'nortena@dist.bo', 'CHANGEME', 'Distribuidor', 5, 1, NULL, '2026-06-04 20:19:15'),
-(9, 'Sandra', 'Lima', 'central@dist.bo', 'CHANGEME', 'Distribuidor', 6, 1, NULL, '2026-06-04 20:19:15'),
-(10, 'Roberto', 'Vaca', 'andes@dist.bo', 'CHANGEME', 'Distribuidor', 7, 1, NULL, '2026-06-04 20:19:15'),
-(11, 'Carmen', 'Chávez', 'sur@dist.bo', 'CHANGEME', 'Distribuidor', 8, 1, NULL, '2026-06-04 20:19:15'),
-(12, 'Jorge', 'Suárez', 'tropical@dist.bo', 'CHANGEME', 'Distribuidor', 9, 1, NULL, '2026-06-04 20:19:15'),
-(13, 'Silvia', 'Ramos', 'express@dist.bo', 'CHANGEME', 'Distribuidor', 10, 1, NULL, '2026-06-04 20:19:15');
+(1, 'Administrador', 'Sistema', 'admin@pilandina.bo', '$2b$12$7AOumIQwQAYTulZGVHynNOe3T8B8c2YgQAN2l1mYbS9YFRzo8llHi', 'Administrador', NULL, 1, NULL, '2026-06-04 20:19:15'),
+(2, 'Carlos', 'Mamani', 'gerente@pilandina.bo', '$2b$12$53FY69zv7uq2T3wEXJQYxOYMbrqNmj68M.Bz9.Hv1GrpOcLthu4fS', 'Gerente', NULL, 1, NULL, '2026-06-04 20:19:15'),
+(3, 'Rosa', 'Torrez', 'rtorrez@pilandina.bo', '$2b$12$eOoFYcUmhWpWipSQ7NTr7ebV6hen0FSm.d6eIMtO/fYcAX4xfTU8q', 'Gerente', NULL, 1, NULL, '2026-06-04 20:19:15'),
+(4, 'Mario', 'Condori', 'andina@dist.bo', '$2b$12$mL.O0Ah5Ybzlv82A4OPJi.jYL1NtO44peRYQ9BNClJCLeIBAjhqH6', 'Distribuidor', 1, 1, NULL, '2026-06-04 20:19:15'),
+(5, 'Ana', 'Flores', 'buen@dist.bo', '$2b$12$Msag9R0FLMLmeXwoQ26mcuTLaLYaDPSHtpxZJ4ojgDKyQT1vb.VJy', 'Distribuidor', 2, 1, NULL, '2026-06-04 20:19:15'),
+(6, 'Luis', 'Medina', 'valle@dist.bo', '$2b$12$Lc/A9pGI.sxt3.ugyoJMy.aetQBKD5EYWNR4xVOvXQ6zEZR9Dlcaa', 'Distribuidor', 3, 1, NULL, '2026-06-04 20:19:15'),
+(7, 'Paola', 'Ribera', 'oriente@dist.bo', '$2b$12$2XdmWAprTWEhLQzFQlWYxO9lg1l2qXoi2Bg1F79j1.zB.FWtqeynm', 'Distribuidor', 4, 1, NULL, '2026-06-04 20:19:15'),
+(8, 'Pedro', 'Quispe', 'nortena@dist.bo', '$2b$12$s3o9sXqolmUCvIdQvvWCmOjC58akCHPC.wNypMP5GJjghCFpcxqF6', 'Distribuidor', 5, 1, NULL, '2026-06-04 20:19:15'),
+(9, 'Sandra', 'Lima', 'central@dist.bo', '$2b$12$aN31Is5EnphVm6dOV6r5S.rcVmNkrnAAnTTpb5RR4DtXAl0rdpK/C', 'Distribuidor', 6, 1, NULL, '2026-06-04 20:19:15'),
+(10, 'Roberto', 'Vaca', 'andes@dist.bo', '$2b$12$YMicfp5sols.A.O92ILYe.sfNHdSDjKgHYGxBRZ.ZMFNvUqHsjsmC', 'Distribuidor', 7, 1, NULL, '2026-06-04 20:19:15'),
+(11, 'Carmen', 'Chávez', 'sur@dist.bo', '$2b$12$RVOpYV/dcdRTJWkF6kAFAuIpUhGJOkscgyBbvpWDQlfrytmNaTL1e', 'Distribuidor', 8, 1, NULL, '2026-06-04 20:19:15'),
+(12, 'Jorge', 'Suárez', 'tropical@dist.bo', '$2b$12$wHVtLN1hzybp8RAO6H2hTO8.MPUIYS8YfLmA.6hVAt1EuxC/1CEdS', 'Distribuidor', 9, 1, NULL, '2026-06-04 20:19:15'),
+(13, 'Silvia', 'Ramos', 'express@dist.bo', '$2b$12$x7eeDn86AlBn198.r3LEfuRRYGWksl.LQXM7SEhkjXqUV3eJQAplK', 'Distribuidor', 10, 1, NULL, '2026-06-04 20:19:15');
 
 -- --------------------------------------------------------
 
@@ -523,6 +523,23 @@ CREATE TABLE `v_proximos_a_vencer` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `v_rotacion_inventario`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `v_rotacion_inventario` (
+`codigo` varchar(20)
+,`marca` varchar(100)
+,`presentacion` enum('355ml','500ml','620ml','1L','2L')
+,`planta` varchar(100)
+,`total_producido` decimal(32,0)
+,`total_despachado` decimal(33,0)
+,`stock_actual` decimal(32,0)
+,`pct_rotacion` decimal(38,1)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `v_stock_actual`
 -- (Véase abajo para la vista actual)
 --
@@ -535,6 +552,22 @@ CREATE TABLE `v_stock_actual` (
 ,`fecha_vencimiento` date
 ,`stock` int(11)
 ,`dias_para_vencer` int(7)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `v_stock_por_planta`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `v_stock_por_planta` (
+`id_planta` int(11)
+,`planta` varchar(100)
+,`ciudad` varchar(100)
+,`marca` varchar(100)
+,`presentacion` enum('355ml','500ml','620ml','1L','2L')
+,`stock_total` decimal(32,0)
+,`num_lotes` bigint(21)
 );
 
 -- --------------------------------------------------------
@@ -567,11 +600,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `v_rotacion_inventario`
+--
+DROP TABLE IF EXISTS `v_rotacion_inventario`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_rotacion_inventario`  AS SELECT `p`.`codigo` AS `codigo`, `p`.`marca` AS `marca`, `p`.`presentacion` AS `presentacion`, `pl`.`nombre` AS `planta`, sum(`l`.`cantidad_producida`) AS `total_producido`, sum(`l`.`cantidad_producida` - `l`.`cantidad_disponible`) AS `total_despachado`, sum(`l`.`cantidad_disponible`) AS `stock_actual`, round(sum(`l`.`cantidad_producida` - `l`.`cantidad_disponible`) / nullif(sum(`l`.`cantidad_producida`),0) * 100,1) AS `pct_rotacion` FROM ((`lotes` `l` join `productos` `p` on(`l`.`id_producto` = `p`.`id_producto`)) join `plantas` `pl` on(`l`.`id_planta` = `pl`.`id_planta`)) WHERE `l`.`estado` in ('Aprobado','Agotado') GROUP BY `p`.`codigo`, `p`.`marca`, `p`.`presentacion`, `pl`.`nombre` ORDER BY round(sum(`l`.`cantidad_producida` - `l`.`cantidad_disponible`) / nullif(sum(`l`.`cantidad_producida`),0) * 100,1) DESC ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `v_stock_actual`
 --
 DROP TABLE IF EXISTS `v_stock_actual`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_stock_actual`  AS SELECT `p`.`marca` AS `marca`, `p`.`presentacion` AS `presentacion`, `pl`.`nombre` AS `planta`, `b`.`nombre` AS `bodega`, `l`.`numero_lote` AS `numero_lote`, `l`.`fecha_vencimiento` AS `fecha_vencimiento`, `l`.`cantidad_disponible` AS `stock`, to_days(`l`.`fecha_vencimiento`) - to_days(curdate()) AS `dias_para_vencer` FROM (((`lotes` `l` join `productos` `p` on(`l`.`id_producto` = `p`.`id_producto`)) join `bodegas` `b` on(`l`.`id_bodega` = `b`.`id_bodega`)) join `plantas` `pl` on(`l`.`id_planta` = `pl`.`id_planta`)) WHERE `l`.`estado` = 'Aprobado' AND `l`.`cantidad_disponible` > 0 ORDER BY to_days(`l`.`fecha_vencimiento`) - to_days(curdate()) ASC ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `v_stock_por_planta`
+--
+DROP TABLE IF EXISTS `v_stock_por_planta`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_stock_por_planta`  AS SELECT `pl`.`id_planta` AS `id_planta`, `pl`.`nombre` AS `planta`, `pl`.`ciudad` AS `ciudad`, `p`.`marca` AS `marca`, `p`.`presentacion` AS `presentacion`, sum(`l`.`cantidad_disponible`) AS `stock_total`, count(`l`.`id_lote`) AS `num_lotes` FROM ((`lotes` `l` join `productos` `p` on(`l`.`id_producto` = `p`.`id_producto`)) join `plantas` `pl` on(`l`.`id_planta` = `pl`.`id_planta`)) WHERE `l`.`estado` = 'Aprobado' AND `l`.`cantidad_disponible` > 0 GROUP BY `pl`.`id_planta`, `pl`.`nombre`, `pl`.`ciudad`, `p`.`marca`, `p`.`presentacion` ORDER BY `pl`.`nombre` ASC, sum(`l`.`cantidad_disponible`) DESC ;
 
 --
 -- Índices para tablas volcadas
