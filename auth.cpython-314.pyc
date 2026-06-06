@@ -1,0 +1,43 @@
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required, current_user
+from app import get_db
+
+lotes_bp = Blueprint("lotes", __name__, url_prefix="/lotes")
+
+@lotes_bp.route("/")
+@login_required
+def lista():
+    db=get_db(); cur=db.cursor(dictionary=True)
+    cur.execute("""SELECT l.*,p.marca,p.presentacion,pl.nombre AS planta,b.nombre AS bodega
+        FROM lotes l
+        JOIN productos p  ON l.id_producto=p.id_producto
+        JOIN plantas   pl ON l.id_planta  =pl.id_planta
+        JOIN bodegas   b  ON l.id_bodega  =b.id_bodega
+        ORDER BY l.fecha_vencimiento ASC""")
+    lotes=cur.fetchall(); db.close()
+    return render_template("lotes/lista.html", lotes=lotes)
+
+@lotes_bp.route("/nuevo", methods=["GET","POST"])
+@login_required
+def nuevo():
+    if not current_user.is_gerente():
+        flash("Sin permisos","danger"); return redirect(url_for("lotes.lista"))
+    db=get_db(); cur=db.cursor(dictionary=True)
+    if request.method=="POST":
+        f=request.form
+        cur2=db.cursor()
+        cur2.callproc("sp_crear_lote",[
+            f["numero_lote"],int(f["id_producto"]),int(f["id_bodega"]),
+            int(f["id_planta"]),f["fecha_produccion"],f["fecha_vencimiento"],
+            int(f["cantidad"]),current_user.id
+        ])
+        db.commit(); db.close()
+        flash("Lote registrado","success")
+        return redirect(url_for("lotes.lista"))
+    cur.execute("SELECT * FROM productos WHERE activo=1")
+    productos=cur.fetchall()
+    cur.execute("SELECT b.*,pl.nombre AS planta FROM bodegas b JOIN plantas pl ON b.id_planta=pl.id_planta WHERE b.activa=1")
+    bodegas=cur.fetchall()
+    cur.execute("SELECT * FROM plantas WHERE activa=1")
+    plantas=cur.fetchall(); db.close()
+    return render_template("lotes/form.html", productos=productos, bodegas=bodegas, plantas=plantas)

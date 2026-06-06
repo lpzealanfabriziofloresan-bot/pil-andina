@@ -1,2 +1,7 @@
-# pil-andina
-Sistema de gestión PIL Andina - Base de Datos 2
+flask
+flask-login
+mysql-connector-python
+python-dotenv
+bcrypt
+pandas
+openpyxl
